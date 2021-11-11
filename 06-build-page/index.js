@@ -13,7 +13,7 @@ const distUrl = `${__dirname}/project-dist`;
 
 async function replaceTemplateComponents(){
   let templateContent = await fs.readFile(`${srcUrl}/template.html`, 'utf-8');
-  const components = await Promise.all(templateContent.match(/(?<={{).*(?=}})/g).map(async (fileName) => [fileName, await fs.readFile(`${srcUrl}/components/${fileName}.html`)]));
+  const components = await Promise.all(templateContent.match(/(?<={{).*?(?=}})/g).map(async (fileName) => [fileName, await fs.readFile(`${srcUrl}/components/${fileName}.html`)]));
   for(let [componentName, componentContent] of components){
     templateContent = templateContent.replace(`{{${componentName}}}`, componentContent);
   }
